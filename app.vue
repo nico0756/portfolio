@@ -2,7 +2,9 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+if (import.meta.client) {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 </script>
 
