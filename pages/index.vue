@@ -76,6 +76,10 @@ onMounted(() => {
     // window.addEventListener('resize', setViewportHeight);
     // setViewportHeight();
 
+
+    //load videos after page load
+    loadVideos();
+
     particlesJS("particles-js-black", {
         particles: {
             number: { value: 1000, density: { enable: true, value_area: 500 } },
@@ -244,6 +248,14 @@ onUnmounted(() => {
     }
 });
 
+function loadVideos() {
+    var lazySources = [].slice.call(document.querySelectorAll("video.lazy source"));
+    lazySources.forEach(function (videoSource) {
+        videoSource.src = videoSource.dataset.src;
+        videoSource.parentElement.load();
+    });
+}
+
 function fullscreenVideo(id) {
     let video = document.getElementById('video-' + id);
 
@@ -304,8 +316,8 @@ function fullscreenVideo(id) {
         <div class="nc-content">
             <div class="work-item">
                 <div class="work-video" v-on:click="fullscreenVideo(work.id)">
-                    <video muted loop playsinline autoplay class="autoplay">
-                        <source :src="`/video/${work.id}.mp4`" type="video/mp4">
+                    <video muted loop playsinline autoplay class="lazy">
+                        <source :data-src="`/video/${work.id}.mp4`" type="video/mp4">
                     </video>
                 </div>
                 <div class="work-data">
@@ -319,8 +331,8 @@ function fullscreenVideo(id) {
 
     <!-- to fix fullscreen video bug on mobile (because of gsap) -->
     <div style="height: 0px; width: 0;">
-        <video muted loop playsinline controls autoplay v-for="work in workData" style="width: 100%; display: block;" :id="'video-' + work.id">
-            <source :src="`/video/${work.id}.mp4`" type="video/mp4">
+        <video muted loop playsinline controls autoplay v-for="work in workData" style="width: 100%; display: block;" :id="'video-' + work.id" class="lazy">
+            <source :data-src="`/video/${work.id}.mp4`" type="video/mp4">
         </video>
     </div>
 
@@ -600,7 +612,7 @@ function fullscreenVideo(id) {
     opacity: 0;
 }
 
-footer{
+footer {
     position: relative;
     font-size: 14px;
     font-weight: 200;

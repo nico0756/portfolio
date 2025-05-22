@@ -19,9 +19,10 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Nicolas Cecco | Full Stack Developer' },
       ],
-      script: [{
-        src: "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"
-      }]
+      script: [
+        { src: "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" },
+        //{ src: "https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js" }
+      ]
     }
   },
 
